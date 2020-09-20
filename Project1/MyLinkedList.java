@@ -66,7 +66,6 @@ public class MyLinkedList
         {
           prevI = nodeI;
           nodeI = nodeI.next;
-          System.out.printf( "prevI = %d  :  nodeI = %d\n", prevI.data, nodeI.data );
         }
       }
 
@@ -76,10 +75,8 @@ public class MyLinkedList
         {
           prevJ = nodeJ;
           nodeJ = nodeJ.next;
-          System.out.printf( "prevJ = %d  :  nodeJ = %d\n", prevJ.data, nodeJ.data );
         }
       }
-
 
       //make sure we have nodes to swap
       if( nodeI != null && nodeJ != null )
@@ -164,8 +161,45 @@ public class MyLinkedList
       elements specified, provided the index position is within the size
       and together with the number of elements does not exceed the size
     */
-    public void erase( int d )
+    public void erase( int index, int num )
     {
+      Node prev = null;
+      Node node = head;
+
+      //validate index and num
+      if ( index < 0 || (index + num) > size )
+        throw new ArrayIndexOutOfBoundsException( "Erase " + (index + num) + "; size " + size );
+
+      //update pointers
+      for ( int k = 0; k < index; k++ )
+      {
+        if( node != null )
+        {
+          prev = node;
+          node = node.next;
+        }
+      }
+
+      for ( int j = 0; j < num - 1 ; j++ )
+      {
+        if( node != null )
+        {
+          node = node.next;
+        }
+      }
+      if ( index == 0 )
+      {
+        head = node.next;
+      }
+      else
+      {
+        prev.next = node.next;
+      }
+
+      // node = null;
+      //update size
+      size -= num;
+      return;
 
     }
     /**
@@ -306,7 +340,8 @@ public class MyLinkedList
        // System.out.printf( "shift by %d\n", j );
        // System.out.println( list );
 
-
+       // list.erase( 0, 5 );
+       // System.out.println(list);
 
 
 
