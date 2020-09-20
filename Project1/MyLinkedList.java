@@ -55,17 +55,31 @@ public class MyLinkedList
       if ( i == j )
         return;
 
+      if ( i < 0 || i > size - 1 )
+        throw new ArrayIndexOutOfBoundsException( "Index " + i + "; size " + size );
+      if ( j < 0 || j > size - 1 )
+        throw new ArrayIndexOutOfBoundsException( "Index " + j + "; size " + size );
       //search the list for the 4 nodes we need to update
-      while( nodeI != null && nodeI.data != i )
+      for ( int k = 0; k < i; k++ )
       {
-        prevI = nodeI;
-        nodeI = nodeI.next;
+        if( nodeI != null )
+        {
+          prevI = nodeI;
+          nodeI = nodeI.next;
+          System.out.printf( "prevI = %d  :  nodeI = %d\n", prevI.data, nodeI.data );
+        }
       }
-      while( nodeJ != null && nodeJ.data != j )
+
+      for ( int k = 0; k < j; k++ )
       {
-        prevJ = nodeJ;
-        nodeJ = nodeJ.next;
+        if( nodeJ != null )
+        {
+          prevJ = nodeJ;
+          nodeJ = nodeJ.next;
+          System.out.printf( "prevJ = %d  :  nodeJ = %d\n", prevJ.data, nodeJ.data );
+        }
       }
+
 
       //make sure we have nodes to swap
       if( nodeI != null && nodeJ != null )
@@ -104,13 +118,12 @@ public class MyLinkedList
         return;
       //check size of list by counting nodes to null from head
       Node temp = head;
-      int n = 0;
+
       while( temp != null ){
-          n++;
           temp = temp.next;
       }
 
-      x = x % n;
+      x = x % size;
 
       if( x == 0 ) return;
       //check negative and handle
@@ -122,11 +135,11 @@ public class MyLinkedList
       else
       {
         //rotate left
-        x = n - x;
+        x = size - x;
       }
 
       temp = head;
-      for( int i = 0; i < n-x-1; i++ ){
+      for( int i = 0; i < size-x-1; i++ ){
           temp = temp.next;
       }
 
@@ -281,11 +294,11 @@ public class MyLinkedList
        MyLinkedList list = new MyLinkedList();
 
        for ( int i = 0; i < 5; i++ )
-          list.addFront( i );
+          list.addBack( i );
 
        System.out.println( list );
 
-       // list.swap( 0, 4 );
+       // list.swap( 0, 3 );
        // System.out.println(list);
 
        // int j = -6;
