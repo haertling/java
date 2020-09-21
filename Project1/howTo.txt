@@ -1,0 +1,166 @@
+How to compile MyLinkedList
+1: javac MyLinkedList.java
+2: java MyLinkedList
+3: Output =
+    list before swap HEAD
+    [ 0 1 2 3 4 ]
+    head = 0 tail = 4
+    swap( 0, 3 )
+    [ 3 1 2 0 4 ]
+    head = 3 tail = 4
+
+    list before swap middle
+    [ 0 1 2 3 4 ]
+    head = 0 tail = 4
+    swap( 2, 3 )
+    [ 0 1 3 2 4 ]
+    head = 0 tail = 4
+
+    list before swap to TAIL
+    [ 0 1 2 3 4 ]
+    head = 0 tail = 4
+    swap( 3, 5 )
+    [ 0 1 2 4 3 ]
+    head = 0 tail = 3
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( -6 )
+    [ 4 0 1 2 3 ]
+    head = 4 tail = 3
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( -5 )
+    [ 0 1 2 3 4 ]
+    head = 0 tail = 4
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( -4 )
+    [ 1 2 3 4 0 ]
+    head = 1 tail = 0
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( -3 )
+    [ 2 3 4 0 1 ]
+    head = 2 tail = 1
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( -2 )
+    [ 3 4 0 1 2 ]
+    head = 3 tail = 2
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( -1 )
+    [ 4 0 1 2 3 ]
+    head = 4 tail = 3
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( 0 )
+    [ 0 1 2 3 4 ]
+    head = 0 tail = 4
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( 1 )
+    [ 1 2 3 4 0 ]
+    head = 1 tail = 0
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( 2 )
+    [ 2 3 4 0 1 ]
+    head = 2 tail = 1
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( 3 )
+    [ 3 4 0 1 2 ]
+    head = 3 tail = 2
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( 4 )
+    [ 4 0 1 2 3 ]
+    head = 4 tail = 3
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( 5 )
+    [ 0 1 2 3 4 ]
+    head = 0 tail = 4
+
+    list before shift
+    [ 0 1 2 3 4 ]
+    shift( 6 )
+    [ 1 2 3 4 0 ]
+    head = 1 tail = 0
+
+    erase head
+    list before erase
+    [ 0 1 2 3 4 ]
+    head = 0 tail = 4
+    erase( 0, 1 )
+    [ 1 2 3 4 ]
+    head = 1 tail = 4
+
+    erase tail
+    list before 2nd erase
+    [ 1 2 3 4 ]
+    head = 1 tail = 4
+    erase( 3, 1 )
+    [ 1 2 3 ]
+    head = 1 tail = 3
+
+    erase middle
+    list before 3nd erase
+    [ 1 2 3 ]
+    head = 1 tail = 3
+    erase( 1, 2 )
+    [ 1 ]
+    head = 1 tail = 1
+
+    list before insert
+    [ 0 1 2 3 4 ]
+    head = 0 tail = 4
+
+    insertList( 0 , list )
+    Insert a list on the head
+    [ 5 6 7 8 9 0 1 2 3 4 ]
+    head = 5 tail = 4
+
+
+    list before insert
+    [ 0 1 2 3 4 ]
+    head = 0 tail = 4
+
+    insertList( 2 , list )
+    Insert a list in the middle
+    [ 0 1 5 6 7 8 9 2 3 4 ]
+    head = 0 tail = 4
+
+
+    list before insert
+    [ 0 1 2 3 4 ]
+    head = 0 tail = 4
+
+    insertList( 5 , list )
+    Insert a list on the tail
+    [ 0 1 2 3 4 5 6 7 8 9 ]
+    head = 0 tail = 9
+
+How to compile MyStack
+1: javac MyStack.java
+2: java MyStack
+3: Output =
+    running [({{{{}{})] through stack
+    bad match {, expected (
+    bad match {, expected [
+    []
+    running [({}{})] through stack
+    []
