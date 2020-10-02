@@ -153,6 +153,15 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     }
 
     /**
+     * Creates and returns a new tree that is a copy of the original tree.
+     * @return BinaryNode root of the copied tree
+     */
+    public BinaryNode<AnyType> copy( )
+    {
+        return copy( root );
+    }
+
+    /**
      * Internal method to insert into a subtree.
      * @param x the item to insert.
      * @param t the node that roots the subtree.
@@ -335,6 +344,21 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         return false;
     }
 
+    /**
+     * Creates and returns a new tree that is a copy of the original tree.
+     * @param t node that roots the first subtree.
+     * @return BinaryNode root of new tree
+     */
+    private BinaryNode<AnyType> copy( BinaryNode<AnyType> t )
+    {
+        if ( t == null )
+            return null;
+        BinaryNode<AnyType> r = new BinaryNode<AnyType>( t.element );
+        r.left  = copy( t.left );
+        r.right = copy( t.right );
+        return r;
+    }
+
     // Basic node stored in unbalanced binary search trees
     private static class BinaryNode<AnyType>
     {
@@ -366,6 +390,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     {
         BinarySearchTree<Integer> t = new BinarySearchTree<>( );
         BinarySearchTree<Integer> r = new BinarySearchTree<>( );
+        BinarySearchTree<Integer> e = new BinarySearchTree<>( );
         final int NUMS = 8;
         final int GAP  =  2;
 
@@ -415,6 +440,9 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
             {
                 System.out.println( "The trees are not identical" );
             }
+            e.root = t.copy( );
+            e.printTree( );
+
         }
 
         if( t.findMin( ) != 2 || t.findMax( ) != NUMS - 2 )
