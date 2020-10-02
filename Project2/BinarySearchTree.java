@@ -138,7 +138,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
      */
     public boolean compareStructure( BinaryNode<AnyType> r )
     {
-        return compareStructure( root , r);
+        return compareStructure( root , r );
     }
 
     /**
@@ -149,7 +149,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
      */
     public boolean equals( BinaryNode<AnyType> r )
     {
-        return equals( root , r);
+        return equals( root , r );
     }
 
     /**
@@ -168,6 +168,17 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     public BinaryNode<AnyType> mirror( )
     {
         return mirror( root );
+    }
+
+    /**
+     * Compares the structure of current tree to another tree and returns
+     * true if they are mirrors.
+     * @param r root of second tree to compare to
+     * @return true if trees are mirrors
+     */
+    public boolean isMirror( BinaryNode<AnyType> r )
+    {
+        return isMirror( root , r );
     }
 
     /**
@@ -383,6 +394,21 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         return r;
     }
 
+    /**
+     * Creates and returns a new tree that is a mirror image of the original tree.
+     * @param t node that roots the first subtree.
+     * @return BinaryNode root of mirrored tree
+     */
+    private boolean isMirror( BinaryNode<AnyType> t, BinaryNode<AnyType> r )
+    {
+        if ( t == null && r == null )
+            return true;
+        if ( t == null || r == null )
+            return false;
+
+        return t.element == r.element && isMirror( t.left, r.right ) && isMirror( t.right, r.left );
+    }
+
     // Basic node stored in unbalanced binary search trees
     private static class BinaryNode<AnyType>
     {
@@ -469,6 +495,15 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
             e.printTree( );
             s.root = e.mirror();
             s.printTree( );
+            boolean mirror = e.isMirror( s.root );
+            if ( mirror == true )
+            {
+                System.out.println( "The trees are mirrors" );
+            }
+            else
+            {
+                System.out.println( "The trees are not mirrors" );
+            }
 
         }
 
