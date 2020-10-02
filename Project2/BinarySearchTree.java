@@ -114,7 +114,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     public int nodeCount( )
     {
         if( isEmpty( ) )
-            throw new UnderflowException( );
+            return 0;
         return nodeCount( root );
     }
 
@@ -126,8 +126,19 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     public boolean isFull( )
     {
         if( isEmpty( ) )
-            throw new UnderflowException( );
+            return true;
         return isFull( root );
+    }
+
+    /**
+     * Compares the structure of current tree to another tree and returns
+     * true if they match.
+     * @param r second tree to compare to
+     * @return true structure matches
+     */
+    public boolean compareStructure( BinaryNode<AnyType> r )
+    {
+        return compareStructure( root , r);
     }
 
     /**
@@ -276,8 +287,24 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     {
         if( t.left == null && t.right == null )
             return true;
-        if( ( t.left != null ) && ( t.right != null ) )
+        if( t.left != null && t.right != null )
             return ( isFull( t.left ) && isFull( t.right ));
+        return false;
+    }
+
+    /**
+     * Compares the structure of current tree to another tree and returns
+     * true if they match.
+     * @param t node that roots the first subtree.
+     * @param r node that roots the second subtree.
+     * @return true structure matches
+     */
+    private boolean compareStructure( BinaryNode<AnyType> t, BinaryNode<AnyType> r )
+    {
+        if( t == null && r == null )
+            return true;
+        if( t != null && r != null )
+            return ( compareStructure( t.left, r.left ) && compareStructure( t.right, r.right ));
         return false;
     }
 
@@ -311,20 +338,27 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     public static void main( String [ ] args )
     {
         BinarySearchTree<Integer> t = new BinarySearchTree<>( );
+        BinarySearchTree<Integer> r = new BinarySearchTree<>( );
         final int NUMS = 8;
         final int GAP  =  2;
 
         System.out.println( "Checking... (no more output means success)" );
 
         for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
+        {
             t.insert( i );
-
+            r.insert( i );
+        }
         for( int i = 1; i < NUMS; i+= 2 )
+        {
             t.remove( i );
+            r.remove( i );
+        }
 
         if( NUMS < 40 )
         {
             t.printTree( );
+            r.printTree( );
             int count = t.nodeCount( );
             System.out.printf( "nodeCount = %d\n", count );
             boolean full = t.isFull( );
@@ -335,6 +369,15 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
             else
             {
                 System.out.println( "The tree is not full" );
+            }
+            boolean same = t.compareStructure( r.root );
+            if ( same == true )
+            {
+                System.out.println( "The trees are the same structure" );
+            }
+            else
+            {
+                System.out.println( "The trees are not the same structure" );
             }
         }
 
