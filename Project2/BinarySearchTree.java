@@ -13,7 +13,8 @@
 // void printTree( )      --> Print tree in sorted order
 // ******************ERRORS********************************
 // Throws UnderflowException as appropriate
-
+import java.util.LinkedList;
+import java.util.Queue;
 /**
  * Implements an unbalanced binary search tree.
  * Note that all "matching" is based on the compareTo method.
@@ -179,6 +180,15 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     public boolean isMirror( BinaryNode<AnyType> r )
     {
         return isMirror( root , r );
+    }
+
+    /**
+     * Performs a single rotation on the node having the passed value.
+     * @param x the item to rotate on.
+     */
+    public void printLevels(  )
+    {
+        printLevels( root );
     }
 
     /**
@@ -409,6 +419,40 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         return t.element == r.element && isMirror( t.left, r.right ) && isMirror( t.right, r.left );
     }
 
+    /**
+     * performs a level-by-level printing of the tree.
+     * @param t node that roots the first subtree.
+     */
+    private void printLevels( BinaryNode<AnyType> t )
+    {
+        if( t == null )
+            return;
+
+        Queue<BinaryNode<AnyType>> q =new LinkedList<BinaryNode<AnyType>>( );
+        q.add( t );
+
+        while(true)
+        {
+            int nodeCount = q.size( );
+            if( nodeCount == 0 )
+                break;
+
+            while( nodeCount > 0 )
+            {
+                BinaryNode<AnyType> node = q.peek( );
+                System.out.print( node.element + " " );
+                q.remove( );
+                if( node.left != null )
+                    q.add( node.left );
+                if( node.right != null )
+                    q.add( node.right );
+                nodeCount--;
+            }
+            System.out.println( );
+        }
+
+    }
+
     // Basic node stored in unbalanced binary search trees
     private static class BinaryNode<AnyType>
     {
@@ -505,6 +549,10 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
                 System.out.println( "The trees are not mirrors" );
             }
 
+            System.out.printf( "\n\n\n\n\n\n" );
+            s.printTree( );
+            System.out.printf( "\n\n" );
+            s.printLevels();
         }
 
         if( t.findMin( ) != 2 || t.findMax( ) != NUMS - 2 )
