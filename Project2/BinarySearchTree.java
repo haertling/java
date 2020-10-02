@@ -154,11 +154,20 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
 
     /**
      * Creates and returns a new tree that is a copy of the original tree.
-     * @return BinaryNode root of the copied tree
+     * @return BinaryNode root of the mirrored tree
      */
     public BinaryNode<AnyType> copy( )
     {
         return copy( root );
+    }
+
+    /**
+     * Creates and returns a new tree that is a mirror image of the original tree.
+     * @return BinaryNode root of the copied tree
+     */
+    public BinaryNode<AnyType> mirror( )
+    {
+        return mirror( root );
     }
 
     /**
@@ -347,7 +356,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     /**
      * Creates and returns a new tree that is a copy of the original tree.
      * @param t node that roots the first subtree.
-     * @return BinaryNode root of new tree
+     * @return BinaryNode root of coppied tree
      */
     private BinaryNode<AnyType> copy( BinaryNode<AnyType> t )
     {
@@ -356,6 +365,21 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         BinaryNode<AnyType> r = new BinaryNode<AnyType>( t.element );
         r.left  = copy( t.left );
         r.right = copy( t.right );
+        return r;
+    }
+
+    /**
+     * Creates and returns a new tree that is a mirror image of the original tree.
+     * @param t node that roots the first subtree.
+     * @return BinaryNode root of mirrored tree
+     */
+    private BinaryNode<AnyType> mirror( BinaryNode<AnyType> t )
+    {
+        if ( t == null )
+            return null;
+        BinaryNode<AnyType> r = new BinaryNode<AnyType>( t.element );
+        r.left  = mirror( t.right );
+        r.right = mirror( t.left );
         return r;
     }
 
@@ -391,7 +415,8 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         BinarySearchTree<Integer> t = new BinarySearchTree<>( );
         BinarySearchTree<Integer> r = new BinarySearchTree<>( );
         BinarySearchTree<Integer> e = new BinarySearchTree<>( );
-        final int NUMS = 8;
+        BinarySearchTree<Integer> s = new BinarySearchTree<>( );
+        final int NUMS =  8;
         final int GAP  =  2;
 
         System.out.println( "Checking... (no more output means success)" );
@@ -442,6 +467,8 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
             }
             e.root = t.copy( );
             e.printTree( );
+            s.root = e.mirror();
+            s.printTree( );
 
         }
 
