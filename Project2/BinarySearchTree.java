@@ -108,6 +108,17 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     }
 
     /**
+     * Recursively traverses the tree and returns the count of nodes in the tree.
+     * @return number of nodes
+     */
+    public int nodeCount( )
+    {
+        if( isEmpty( ) )
+            throw new UnderflowException( );
+        return nodeCount( root );
+    }
+
+    /**
      * Internal method to insert into a subtree.
      * @param x the item to insert.
      * @param t the node that roots the subtree.
@@ -231,6 +242,19 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
             return 1 + Math.max( height( t.left ), height( t.right ) );
     }
 
+    /**
+     * Recursively traverses the tree and returns the count of nodes.
+     * @param t the node that roots the subtree.
+     * @return number of nodes
+     */
+    private int nodeCount( BinaryNode<AnyType> t )
+    {
+        if( t == null )
+            return 0;
+        return 1 + nodeCount ( t.left ) + nodeCount ( t.right );
+    }
+
+
     // Basic node stored in unbalanced binary search trees
     private static class BinaryNode<AnyType>
     {
@@ -261,8 +285,8 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     public static void main( String [ ] args )
     {
         BinarySearchTree<Integer> t = new BinarySearchTree<>( );
-        final int NUMS = 4000;
-        final int GAP  =   37;
+        final int NUMS = 30;
+        final int GAP  =  2;
 
         System.out.println( "Checking... (no more output means success)" );
 
@@ -273,7 +297,12 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
             t.remove( i );
 
         if( NUMS < 40 )
+        {
             t.printTree( );
+            int count = t.nodeCount( );
+            System.out.printf( "nodeCount = %d", count );
+        }
+
         if( t.findMin( ) != 2 || t.findMax( ) != NUMS - 2 )
             System.out.println( "FindMin or FindMax error!" );
 
