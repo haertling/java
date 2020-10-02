@@ -119,6 +119,18 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     }
 
     /**
+     * Function to check if the tree is Full. A full tree has every node
+     * as either a leaf or a parent with two children.
+     * @return true if the tree is full
+     */
+    public boolean isFull( )
+    {
+        if( isEmpty( ) )
+            throw new UnderflowException( );
+        return isFull( root );
+    }
+
+    /**
      * Internal method to insert into a subtree.
      * @param x the item to insert.
      * @param t the node that roots the subtree.
@@ -254,6 +266,20 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         return 1 + nodeCount ( t.left ) + nodeCount ( t.right );
     }
 
+    /**
+     * Function to check if the tree is Full. A full tree has every node
+     * as either a leaf or a parent with two children.
+     * @param t the node that roots the subtree.
+     * @return true if the tree is full
+     */
+    private boolean isFull( BinaryNode<AnyType> t )
+    {
+        if( t.left == null && t.right == null )
+            return true;
+        if( ( t.left != null ) && ( t.right != null ) )
+            return ( isFull( t.left ) && isFull( t.right ));
+        return false;
+    }
 
     // Basic node stored in unbalanced binary search trees
     private static class BinaryNode<AnyType>
@@ -285,7 +311,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     public static void main( String [ ] args )
     {
         BinarySearchTree<Integer> t = new BinarySearchTree<>( );
-        final int NUMS = 30;
+        final int NUMS = 8;
         final int GAP  =  2;
 
         System.out.println( "Checking... (no more output means success)" );
@@ -300,7 +326,16 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         {
             t.printTree( );
             int count = t.nodeCount( );
-            System.out.printf( "nodeCount = %d", count );
+            System.out.printf( "nodeCount = %d\n", count );
+            boolean full = t.isFull( );
+            if ( full == true )
+            {
+                System.out.println( "The tree is full" );
+            }
+            else
+            {
+                System.out.println( "The tree is not full" );
+            }
         }
 
         if( t.findMin( ) != 2 || t.findMax( ) != NUMS - 2 )
