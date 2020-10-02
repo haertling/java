@@ -133,12 +133,23 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     /**
      * Compares the structure of current tree to another tree and returns
      * true if they match.
-     * @param r second tree to compare to
+     * @param r root of second tree to compare to
      * @return true structure matches
      */
     public boolean compareStructure( BinaryNode<AnyType> r )
     {
         return compareStructure( root , r);
+    }
+
+    /**
+     * Compares the structure of current tree to another tree and returns
+     * true if they match.
+     * @param r root of second tree to compare to
+     * @return true if trees are identical
+     */
+    public boolean equals( BinaryNode<AnyType> r )
+    {
+        return equals( root , r);
     }
 
     /**
@@ -308,6 +319,22 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         return false;
     }
 
+    /**
+     * Compares the current tree to another tree and returns true
+     * if they are identical.
+     * @param t node that roots the first subtree.
+     * @param r node that roots the second subtree.
+     * @return true if trees are identical
+     */
+    private boolean equals( BinaryNode<AnyType> t, BinaryNode<AnyType> r )
+    {
+        if( t == null && r == null )
+            return true;
+        if( t != null && r != null )
+            return ( t.element == r.element && equals( t.left, r.left ) && equals( t.right, r.right ) );
+        return false;
+    }
+
     // Basic node stored in unbalanced binary search trees
     private static class BinaryNode<AnyType>
     {
@@ -378,6 +405,15 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
             else
             {
                 System.out.println( "The trees are not the same structure" );
+            }
+            boolean id = t.equals( r.root );
+            if ( id == true )
+            {
+                System.out.println( "The trees are identical" );
+            }
+            else
+            {
+                System.out.println( "The trees are not identical" );
             }
         }
 
