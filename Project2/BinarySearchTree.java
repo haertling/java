@@ -566,6 +566,9 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         BinarySearchTree<Integer> r = new BinarySearchTree<>( );
         BinarySearchTree<Integer> e = new BinarySearchTree<>( );
         BinarySearchTree<Integer> s = new BinarySearchTree<>( );
+        BinarySearchTree<Integer> fullTree = new BinarySearchTree<>( );
+        BinarySearchTree<Integer> Lroot = new BinarySearchTree<>( );
+        BinarySearchTree<Integer> Rroot = new BinarySearchTree<>( );
         final int NUMS =  10;
         final int GAP  =  2;
 
@@ -574,98 +577,177 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
         {
             t.insert( i );
-            r.insert( i );
         }
         for( int i = 1; i < NUMS; i+= 2 )
         {
             t.remove( i );
-            r.remove( i );
         }
 
         if( NUMS < 40 )
         {
-            // t.printTree( );
-            // r.printTree( );
-            // int count = t.nodeCount( );
-            // System.out.printf( "nodeCount = %d\n", count );
-            // boolean full = t.isFull( );
-            // if ( full == true )
-            // {
-            //     System.out.println( "The tree is full" );
-            // }
-            // else
-            // {
-            //     System.out.println( "The tree is not full" );
-            // }
-            // boolean same = t.compareStructure( r.root );
-            // if ( same == true )
-            // {
-            //     System.out.println( "The trees are the same structure" );
-            // }
-            // else
-            // {
-            //     System.out.println( "The trees are not the same structure" );
-            // }
-            // boolean id = t.equals( r.root );
-            // if ( id == true )
-            // {
-            //     System.out.println( "The trees are identical" );
-            // }
-            // else
-            // {
-            //     System.out.println( "The trees are not identical" );
-            // }
-            // e.root = t.copy( );
-            // e.printTree( );
-            // s.root = t.mirror();
-            // s.printTree( );
-            // boolean mirror = e.isMirror( s.root );
-            // if ( mirror == true )
-            // {
-            //     System.out.println( "The trees are mirrors" );
-            // }
-            // else
-            // {
-            //     System.out.println( "The trees are not mirrors" );
-            // }
-            //t.rotateLeft( 2 );
-
-            //System.out.printf( "\n\n" );
+            System.out.println( "The tree to start" );
             t.printTree( );
-            // System.out.printf( "\n" );
-            // t.printLevels();
 
-            // r.rotateLeft( 4 );
-            //
-            // System.out.printf( "\n\n" );
-            // r.printTree( );
-            // System.out.printf( "\n" );
-            // r.printLevels();
+            //demonstration of nodeCount
+            System.out.println( "demonstration of nodeCount" );
+            int count = t.nodeCount( );
+            System.out.printf( "nodeCount = %d\n\n", count );
 
-            System.out.printf( "printing mirror of tree\n" );
+            //demonstration of isFull
+            System.out.println( "demonstration of isFull" );
+            for( int i = 0; i < 2; i++ )
+            {
+                boolean full = false;
+                if ( i == 1 )
+                {
+                    fullTree.insert( 4 );
+                    fullTree.insert( 2 );
+                    fullTree.insert( 6 );
+                    System.out.println( "full check tree levels:" );
+                    System.out.println( "tree.printLevels();" );
+                    fullTree.printLevels();
+                }
+
+                if ( i == 0 )
+                    full = t.isFull( );
+                else
+                    full = fullTree.isFull( );
+                if ( full == true )
+                    System.out.println( "The tree is full\n" );
+                else
+                    System.out.println( "The tree is not full\n" );
+            }
+
+
+
+
+
+            //demonstration of copy
+            System.out.println( "demonstration of copy" );
+            r.root = t.copy( );
+            System.out.println( "The copied tree of the original" );
+            r.printTree( );
+
+            //demonstration of compareStructure
+            System.out.println( "demonstration of compareStructure" );
+            for( int i = 0; i < 2; i++ )
+            {
+                if ( i == 1 )
+                {
+                    t.remove( 8 );
+                    System.out.println( "8 was removed from one tree" );
+                }
+
+                boolean same = t.compareStructure( r.root );
+                if ( same == true )
+                {
+                    System.out.println( "The trees are the same structure" );
+                }
+                else
+                {
+                    System.out.println( "The trees are not the same structure" );
+                }
+                if ( i == 1 )
+                {
+                    t.insert( 8 );
+                    System.out.println( "8 was added back to one tree\n" );
+                }
+            }
+
+            //demonstration of equals
+            System.out.println( "demonstration of equals" );
+            for( int i = 0; i < 2; i++ )
+            {
+                if ( i == 1 )
+                {
+                    t.remove( 8 );
+                    System.out.println( "8 was removed from one tree" );
+                }
+
+                boolean id = t.equals( r.root );
+                if ( id == true )
+                {
+                    System.out.println( "The trees are identical" );
+                }
+                else
+                {
+                    System.out.println( "The trees are not identical" );
+                }
+                if ( i == 1 )
+                {
+                    t.insert( 8 );
+                    System.out.println( "8 was added back to one tree\n" );
+                }
+            }
+
+            //demonstration of mirror
+            System.out.println( "demonstration of mirror" );
+            System.out.println( "The tree to start" );
+            t.printTree( );
+            System.out.println( "The tree to start.printLevels();" );
+            t.printLevels( );
+            e.root = t.mirror();
+            System.out.println( "The mirrored tree to start" );
+            e.printTree( );
+            System.out.println( "The mirrored tree.printLevels();\n" );
+            t.printLevels( );
+
+            //demonstration of isMirror
+            System.out.println( "demonstration of isMirror" );
+            for( int i = 0; i < 2; i++ )
+            {
+                if ( i == 1 )
+                {
+                    t.remove( 8 );
+                    System.out.println( "8 was removed from one tree" );
+                }
+
+                boolean mirror = e.isMirror( t.root );
+                if ( mirror == true )
+                {
+                    System.out.println( "The trees are mirrors" );
+                }
+                else
+                {
+                    System.out.println( "The trees are not mirrors" );
+                }
+
+                if ( i == 1 )
+                {
+                    t.insert( 8 );
+                    System.out.println( "8 was added back to one tree\n" );
+                }
+            }
+
+
+            //example of rotateLeft
+            System.out.println( "example of rotateLeft" );
+            System.out.println( "The tree to start" );
+            t.printTree( );
             s.root = t.mirror();
-            s.printTree( );
-            System.out.printf( "printLevels \n" );
-            s.printLevels();
-            s.rotateRight( 4 );
+            System.out.println( "The tree to start.printLevels();" );
+            t.printLevels();
+            t.rotateLeft( 4 );// try 2 here for root being rotated out 
+            System.out.println( "tree.rotateLeft( 2 );" );
+            System.out.println( "The tree one rotate left" );
+            t.printTree( );
+            System.out.println( "The tree one rotate left.printLevels();" );
+            t.printLevels();
 
-            System.out.printf( "rotated right\n\n" );
+            //example of rotateRight
+            System.out.println( "\nexample of rotateRight" );
+            System.out.println( "The mirror tree to start" );
             s.printTree( );
-            System.out.printf( "\n" );
+            System.out.printf( "mirrorTree.printLevels(); \n" );
             s.printLevels();
+            s.rotateRight( 4 );// try 2 here for root being rotated out
+            System.out.println( "tree.rotateRight( 4 );" );
+            System.out.println( "The tree one rotate right" );
+            s.printTree( );
+            System.out.println( "The tree one rotate right.printLevels();" );
+            s.printLevels();
+            System.out.println( "to show mirror working, orignal tree levels again:" );
+            t.printLevels();
         }
-
-        // if( t.findMin( ) != 2 || t.findMax( ) != NUMS - 2 )
-        //     System.out.println( "FindMin or FindMax error!" );
-        //
-        // for( int i = 2; i < NUMS; i+=2 )
-        //      if( !t.contains( i ) )
-        //          System.out.println( "Find error1!" );
-        //
-        // for( int i = 1; i < NUMS; i+=2 )
-        // {
-        //     if( t.contains( i ) )
-        //         System.out.println( "Find error2!" );
-        // }
     }
 }
