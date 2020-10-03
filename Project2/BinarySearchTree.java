@@ -186,6 +186,41 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
      * Performs a single rotation on the node having the passed value.
      * @param x the item to rotate on.
      */
+    public void rotateRight( AnyType x )
+    {
+        if ( x  == root.element )
+        {
+            root = rotateRight( root );
+        }
+        else
+        {
+            BinaryNode<AnyType> prev = root;
+            BinaryNode<AnyType> node = getNode( x, root, prev );
+            node.left = rotateRight( node.left );
+        }
+    }
+
+    /**
+     * Performs a single rotation on the node having the passed value.
+     * @param x the item to rotate on.
+     */
+    public void rotateLeft( AnyType x )
+    {
+        if ( x  == root.element )
+        {
+            root = rotateLeft( root );
+        }
+        else
+        {
+            BinaryNode<AnyType> prev = root;
+            BinaryNode<AnyType> node = getNode( x, root, prev );
+            node.right = rotateLeft( node.right );
+        }
+    }
+
+    /**
+     * performs a level-by-level printing of the tree.
+     */
     public void printLevels(  )
     {
         printLevels( root );
@@ -420,6 +455,51 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
     }
 
     /**
+     * Creates and returns a new tree that is a mirror image of the original tree.
+     * @param t node that roots the first subtree.
+     * @return the new root of the subtree.
+     */
+    private BinaryNode<AnyType> getNode( AnyType x, BinaryNode<AnyType> t, BinaryNode<AnyType> prev )
+    {
+        if( t != null )
+        {
+            if( x.compareTo( t.element ) == 0 )
+               return prev;
+            else
+            {
+                BinaryNode<AnyType> foundNode = getNode( x, t.left, t );
+                if( foundNode == null )
+                    foundNode = getNode( x, t.right, t);
+                return foundNode;
+            }
+        }
+        else
+            return null;
+
+    }
+
+    private BinaryNode<AnyType> rotateRight( BinaryNode<AnyType> t )
+    {
+        if ( t.left == null )
+            return t;
+        BinaryNode<AnyType> x = t.left;
+        t.left = x.right;
+        x.right = t;
+
+	    return x;
+    }
+
+    private BinaryNode<AnyType> rotateLeft( BinaryNode<AnyType> t )
+    {
+        if ( t.right == null )
+            return t;
+        BinaryNode<AnyType> x = t.right;
+        t.right = x.left;
+	    x.left = t;
+	    return x;
+    }
+
+    /**
      * performs a level-by-level printing of the tree.
      * @param t node that roots the first subtree.
      */
@@ -486,10 +566,10 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
         BinarySearchTree<Integer> r = new BinarySearchTree<>( );
         BinarySearchTree<Integer> e = new BinarySearchTree<>( );
         BinarySearchTree<Integer> s = new BinarySearchTree<>( );
-        final int NUMS =  8;
+        final int NUMS =  10;
         final int GAP  =  2;
 
-        System.out.println( "Checking... (no more output means success)" );
+        //System.out.println( "Checking... (no more output means success)" );
 
         for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
         {
@@ -504,68 +584,88 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>>
 
         if( NUMS < 40 )
         {
-            t.printTree( );
-            r.printTree( );
-            int count = t.nodeCount( );
-            System.out.printf( "nodeCount = %d\n", count );
-            boolean full = t.isFull( );
-            if ( full == true )
-            {
-                System.out.println( "The tree is full" );
-            }
-            else
-            {
-                System.out.println( "The tree is not full" );
-            }
-            boolean same = t.compareStructure( r.root );
-            if ( same == true )
-            {
-                System.out.println( "The trees are the same structure" );
-            }
-            else
-            {
-                System.out.println( "The trees are not the same structure" );
-            }
-            boolean id = t.equals( r.root );
-            if ( id == true )
-            {
-                System.out.println( "The trees are identical" );
-            }
-            else
-            {
-                System.out.println( "The trees are not identical" );
-            }
-            e.root = t.copy( );
-            e.printTree( );
-            s.root = e.mirror();
-            s.printTree( );
-            boolean mirror = e.isMirror( s.root );
-            if ( mirror == true )
-            {
-                System.out.println( "The trees are mirrors" );
-            }
-            else
-            {
-                System.out.println( "The trees are not mirrors" );
-            }
+            // t.printTree( );
+            // r.printTree( );
+            // int count = t.nodeCount( );
+            // System.out.printf( "nodeCount = %d\n", count );
+            // boolean full = t.isFull( );
+            // if ( full == true )
+            // {
+            //     System.out.println( "The tree is full" );
+            // }
+            // else
+            // {
+            //     System.out.println( "The tree is not full" );
+            // }
+            // boolean same = t.compareStructure( r.root );
+            // if ( same == true )
+            // {
+            //     System.out.println( "The trees are the same structure" );
+            // }
+            // else
+            // {
+            //     System.out.println( "The trees are not the same structure" );
+            // }
+            // boolean id = t.equals( r.root );
+            // if ( id == true )
+            // {
+            //     System.out.println( "The trees are identical" );
+            // }
+            // else
+            // {
+            //     System.out.println( "The trees are not identical" );
+            // }
+            // e.root = t.copy( );
+            // e.printTree( );
+            // s.root = t.mirror();
+            // s.printTree( );
+            // boolean mirror = e.isMirror( s.root );
+            // if ( mirror == true )
+            // {
+            //     System.out.println( "The trees are mirrors" );
+            // }
+            // else
+            // {
+            //     System.out.println( "The trees are not mirrors" );
+            // }
+            //t.rotateLeft( 2 );
 
-            System.out.printf( "\n\n\n\n\n\n" );
+            //System.out.printf( "\n\n" );
+            t.printTree( );
+            // System.out.printf( "\n" );
+            // t.printLevels();
+
+            // r.rotateLeft( 4 );
+            //
+            // System.out.printf( "\n\n" );
+            // r.printTree( );
+            // System.out.printf( "\n" );
+            // r.printLevels();
+
+            System.out.printf( "printing mirror of tree\n" );
+            s.root = t.mirror();
             s.printTree( );
-            System.out.printf( "\n\n" );
+            System.out.printf( "printLevels \n" );
+            s.printLevels();
+            s.rotateRight( 4 );
+
+            System.out.printf( "rotated right\n\n" );
+            s.printTree( );
+            System.out.printf( "\n" );
             s.printLevels();
         }
 
-        if( t.findMin( ) != 2 || t.findMax( ) != NUMS - 2 )
-            System.out.println( "FindMin or FindMax error!" );
-
-        for( int i = 2; i < NUMS; i+=2 )
-             if( !t.contains( i ) )
-                 System.out.println( "Find error1!" );
-
-        for( int i = 1; i < NUMS; i+=2 )
-        {
-            if( t.contains( i ) )
-                System.out.println( "Find error2!" );
-        }
+        // if( t.findMin( ) != 2 || t.findMax( ) != NUMS - 2 )
+        //     System.out.println( "FindMin or FindMax error!" );
+        //
+        // for( int i = 2; i < NUMS; i+=2 )
+        //      if( !t.contains( i ) )
+        //          System.out.println( "Find error1!" );
+        //
+        // for( int i = 1; i < NUMS; i+=2 )
+        // {
+        //     if( t.contains( i ) )
+        //         System.out.println( "Find error2!" );
+        // }
     }
 }
