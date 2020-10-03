@@ -1,0 +1,119 @@
+
+
+
+compile the program using javac:
+
+    javac -g -Xlint BinarySearchTree.java
+
+Running the program gives this output:
+
+    The tree to start
+    2
+    4
+    6
+    8
+    demonstration of nodeCount
+    nodeCount = 4
+
+    demonstration of isFull
+    The tree is not full
+
+    full check tree levels:
+    tree.printLevels();
+    4
+    2 6
+    The tree is full
+
+    demonstration of copy
+    The copied tree of the original
+    2
+    4
+    6
+    8
+    demonstration of compareStructure
+    The trees are the same structure
+    8 was removed from one tree
+    The trees are not the same structure
+    8 was added back to one tree
+
+    demonstration of equals
+    The trees are identical
+    8 was removed from one tree
+    The trees are not identical
+    8 was added back to one tree
+
+    demonstration of mirror
+    The tree to start
+    2
+    4
+    6
+    8
+    The tree to start.printLevels();
+    2
+    4
+    6
+    8
+    The mirrored tree to start
+    8
+    6
+    4
+    2
+    The mirrored tree.printLevels();
+
+    2
+    4
+    6
+    8
+    demonstration of isMirror
+    The trees are mirrors
+    8 was removed from one tree
+    The trees are not mirrors
+    8 was added back to one tree
+
+    example of rotateLeft
+    The tree to start
+    2
+    4
+    6
+    8
+    The tree to start.printLevels();
+    2
+    4
+    6
+    8
+    tree.rotateLeft( 2 );
+    The tree one rotate left
+    2
+    4
+    6
+    8
+    The tree one rotate left.printLevels();
+    2
+    6
+    4 8
+
+    example of rotateRight
+    The mirror tree to start
+    8
+    6
+    4
+    2
+    mirrorTree.printLevels();
+    2
+    4
+    6
+    8
+    tree.rotateRight( 4 );
+    The tree one rotate right
+    8
+    6
+    4
+    2
+    The tree one rotate right.printLevels();
+    2
+    6
+    8 4
+    to show mirror working, orignal tree levels again:
+    2
+    6
+    4 8
