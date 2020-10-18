@@ -9,7 +9,8 @@
 // bool contains( x )     --> Return true if x is present
 // void makeEmpty( )      --> Remove all items
 
-
+import java.io.*;
+import java.util.Random;
 /**
  * Probing table implementation of hash tables.
  * Note that all "matching" is based on the equals method.
@@ -156,6 +157,17 @@ public class LinearProbingHashTable<AnyType>
     }
 
     /**
+     * Make a random grid of characters.
+     */
+    public char[][] makeGrid( String str )
+    {
+        int x = Integer.parseInt( str );
+        if ( x > 20 ) x = 20;//limiting grid size max to 20
+        if ( x < 2 ) x = 2;//limiting grid size min to 2
+        return randomGrid( x );
+    }
+
+    /**
      * Make the hash table logically empty.
      */
     public void makeEmpty( )
@@ -230,6 +242,28 @@ public class LinearProbingHashTable<AnyType>
     }
 
     /**
+     * Internal method to find a prime number at least as large as n.
+     * @param n the starting number (must be positive).
+     * @return a prime number larger than or equal to n.
+     */
+    private static char[][] randomGrid( int n )
+    {
+        Random r = new Random();
+        char[][] grid = new char[n][n];
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        for (int i = 0; i < n; i++) {
+            for ( int j = 0; j < n; j++ )
+            {
+                grid[i][j] = alphabet.charAt(r.nextInt(alphabet.length()));
+                System.out.print( grid[i][j] );
+                System.out.print(" ");
+            }
+            System.out.println();
+        } // prints 50 random characters from alphabet
+        return grid;
+    }
+
+    /**
      * Internal method to test if a number is prime.
      * Not an efficient algorithm.
      * @param n the number to test.
@@ -264,24 +298,50 @@ public class LinearProbingHashTable<AnyType>
 
         System.out.println( "Checking... (no more output means success)" );
 
-
-        for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
-            H.insert( ""+i );
-        for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
-            if( H.insert( ""+i ) )
-                System.out.println( "OOPS!!! " + i );
-        for( int i = 1; i < NUMS; i+= 2 )
-            H.remove( ""+i );
-
-        for( int i = 2; i < NUMS; i+=2 )
-            if( !H.contains( ""+i ) )
-                System.out.println( "Find fails " + i );
-
-        for( int i = 1; i < NUMS; i+=2 )
+        try
         {
-            if( H.contains( ""+i ) )
-                System.out.println( "OOPS!!! " +  i  );
+            FileInputStream fstream = new FileInputStream("D:\\ProgramFiles\\java\\Project3\\dictionary.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+
+            String strLine;
+            try
+            {
+                //Read File Line By Line
+                while ((strLine = br.readLine()) != null)   {
+                    // Print the content on the console
+                    //System.out.println (strLine);
+                    H.insert( strLine );
+                }
+
+                //Close the input stream
+                fstream.close();
+            }
+            catch ( IOException e ){}
         }
+        catch( FileNotFoundException ex){}
+
+        char[][] grid = H.makeGrid( args[0] );
+
+
+        //int x = H.capacity();
+        //System.out.printf ("arraylength = %d", x );
+        // for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
+        //     H.insert( ""+i );
+        // for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
+        //     if( H.insert( ""+i ) )
+        //         System.out.println( "OOPS!!! " + i );
+        // for( int i = 1; i < NUMS; i+= 2 )
+        //     H.remove( ""+i );
+        //
+        // for( int i = 2; i < NUMS; i+=2 )
+        //     if( !H.contains( ""+i ) )
+        //         System.out.println( "Find fails " + i );
+        //
+        // for( int i = 1; i < NUMS; i+=2 )
+        // {
+        //     if( H.contains( ""+i ) )
+        //         System.out.println( "OOPS!!! " +  i  );
+        // }
 
         long endTime = System.currentTimeMillis( );
 
