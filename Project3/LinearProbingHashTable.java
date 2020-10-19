@@ -76,7 +76,35 @@ public class LinearProbingHashTable<AnyType>
         for( HashEntry<AnyType> entry : oldArray )
             if( entry != null && entry.isActive )
                 insert( entry.element );
-   }
+    }
+
+    // /**
+    //  * Expand the hash table.
+    //  */
+    // public void printHashTable( )
+    // {
+    //     printElements();
+    // }
+    //
+    // /**
+    //  * Expand the hash table.
+    //  */
+    // private void printElements( )
+    // {
+    //     for( HashEntry<AnyType> entry : oldArray )
+    //         if( entry != null && entry.isActive )
+    //             System.out.println( entry.element );
+    // }
+
+    /**
+     * Method that performs linear probing resolution.
+     * @param x the item to search for.
+     * @return the position where the search terminates.
+     */
+    public int getPos( AnyType x )
+    {
+        return findPos( x );
+    }
 
     /**
      * Method that performs linear probing resolution.
@@ -159,13 +187,20 @@ public class LinearProbingHashTable<AnyType>
     /**
      * Make a random grid of characters.
      */
-    public char[][] makeGrid( String str )
+    public char[][] makeGrid( int x )
     {
-        int x = Integer.parseInt( str );
-        if ( x > 20 ) x = 20;//limiting grid size max to 20
+        //if ( x > 20 ) x = 20;//limiting grid size max to 20
         if ( x < 2 ) x = 2;//limiting grid size min to 2
         return randomGrid( x );
     }
+
+    // /**
+    //  * Make a random grid of characters.
+    //  */
+    // public void checkForWord( char[][] grid )
+    // {
+    //     lookForWord( grid );
+    // }
 
     /**
      * Make the hash table logically empty.
@@ -263,6 +298,32 @@ public class LinearProbingHashTable<AnyType>
         return grid;
     }
 
+    // /**
+    //  * Internal method to find a prime number at least as large as n.
+    //  * @param n the starting number (must be positive).
+    //  * @return a prime number larger than or equal to n.
+    //  */
+    // private static String lookRight( char[][] grid, int row, int col, int numChar )
+    // {
+    //
+    //     int i, j = 0;
+    //     while ( i > maxChar )
+    //     {
+    //         while( j > maxChar )
+    //         {
+    //             String str = String.copyValueOf( grid[row], , numChar );
+    //             System.out.println( str );
+    //             if(contains( str ))
+    //             {
+    //                 System.out.println( str );
+    //             }
+    //             j++;
+    //         }
+    //         i++;
+    //     }
+    //     return
+    // }
+
     /**
      * Internal method to test if a number is prime.
      * Not an efficient algorithm.
@@ -320,29 +381,88 @@ public class LinearProbingHashTable<AnyType>
         }
         catch( FileNotFoundException ex){}
 
-        char[][] grid = H.makeGrid( args[0] );
+        //H.printHashTable();
+        int x = Integer.parseInt( args[0] );
+        char[][] grid = H.makeGrid( x );
+        String str = "";
+        //look right
+        System.out.println( "look right"  );
+        for ( int i = 0; i < x; i++ )
+        {
+            for( int j = 0; j < x; j++ )
+            {
+                for( int k = 0; k < ( x - j ); k++ )
+                {
+                    str = str + grid[i][j+k];
+                    //System.out.println( str );
+                    if( H.contains( ""+ str ) )
+                    {
+                        System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                    }
+                }
+                str = "";
+            }
+        }
+        //look left
+        System.out.println( "look left"  );
+        for ( int i = 0; i < x; i++ )
+        {
+            for( int j = x-1 ; j >= 0; j-- )
+            {
+                //System.out.printf( "x %d, y %d\n", i, j );
+                for( int k = 0; k < j; k++ )
+                {
+                    //System.out.printf( "x %d, y %d, k %d, %s\n", i, j, k, str );
+                    str = str + grid[ i ][ j - k ];
+                    //System.out.println( str );
+                    if( H.contains( ""+ str ) )
+                    {
+                        System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                    }
+                }
+                str = "";
+            }
+        }
+        //look down
+        System.out.println( "look down"  );
 
+        for ( int j = 0; j < x; j++ )
+        {
+            for( int i = 0; i < x; i++ )
+            {
+                for( int k = 0; k < ( x - i ); k++ )
+                {
+                    str = str + grid[i+k][j];
+                    //System.out.println( str );
+                    if( H.contains( ""+ str ) )
+                    {
+                        System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                    }
 
-        //int x = H.capacity();
-        //System.out.printf ("arraylength = %d", x );
-        // for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
-        //     H.insert( ""+i );
-        // for( int i = GAP; i != 0; i = ( i + GAP ) % NUMS )
-        //     if( H.insert( ""+i ) )
-        //         System.out.println( "OOPS!!! " + i );
-        // for( int i = 1; i < NUMS; i+= 2 )
-        //     H.remove( ""+i );
-        //
-        // for( int i = 2; i < NUMS; i+=2 )
-        //     if( !H.contains( ""+i ) )
-        //         System.out.println( "Find fails " + i );
-        //
-        // for( int i = 1; i < NUMS; i+=2 )
-        // {
-        //     if( H.contains( ""+i ) )
-        //         System.out.println( "OOPS!!! " +  i  );
-        // }
-
+                }
+                str = "";
+            }
+        }
+        //look up
+        System.out.println( "look up"  );
+        for ( int j = 0; j < x; j++ )
+        {
+            for( int i = x-1 ; i >= 0; i-- )
+            {
+                //System.out.printf( "x %d, y %d\n", i, j );
+                for( int k = 0; k < i; k++ )
+                {
+                    //System.out.printf( "x %d, y %d, k %d, %s\n", i, j, k, str );
+                    str = str + grid[ i - k ][ j ];
+                    //System.out.println( str );
+                    if( H.contains( ""+ str ) )
+                    {
+                        System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                    }
+                }
+                str = "";
+            }
+        }
         long endTime = System.currentTimeMillis( );
 
         System.out.println( "Elapsed time: " + (endTime - startTime) );
