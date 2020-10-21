@@ -386,7 +386,7 @@ public class LinearProbingHashTable<AnyType>
         char[][] grid = H.makeGrid( x );
         String str = "";
         //look right
-        System.out.println( "look right"  );
+        System.out.println( "\nlook right"  );
         for ( int i = 0; i < x; i++ )
         {
             for( int j = 0; j < x; j++ )
@@ -404,7 +404,7 @@ public class LinearProbingHashTable<AnyType>
             }
         }
         //look left
-        System.out.println( "look left"  );
+        System.out.println( "\nlook left" );
         for ( int i = 0; i < x; i++ )
         {
             for( int j = x-1 ; j >= 0; j-- )
@@ -424,7 +424,7 @@ public class LinearProbingHashTable<AnyType>
             }
         }
         //look down
-        System.out.println( "look down"  );
+        System.out.println( "\nlook down" );
 
         for ( int j = 0; j < x; j++ )
         {
@@ -444,7 +444,7 @@ public class LinearProbingHashTable<AnyType>
             }
         }
         //look up
-        System.out.println( "look up"  );
+        System.out.println( "\nlook up" );
         for ( int j = 0; j < x; j++ )
         {
             for( int i = x-1 ; i >= 0; i-- )
@@ -463,6 +463,151 @@ public class LinearProbingHashTable<AnyType>
                 str = "";
             }
         }
+        //up right
+        System.out.println( "\nlook up-right" );
+        //i moving
+        for( int i = 0 ; i < x; i++ )
+        {
+            int j = 0;
+            //System.out.printf( "x %d, y %d\n", i, j );
+            for( int k = 0; k < i + 1; k++ )
+            {
+                //System.out.printf( "x %d, y %d, k %d, %s\n", i, j, k, str );
+                str = str + grid[ i - k ][ j + k ];
+                //System.out.println( str );
+                if( H.contains( ""+ str ) )
+                {
+                    System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                }
+            }
+            str = "";
+        }
+        //j moving
+        for( int j = x - 1 ; j > 0; j-- )
+        {
+            int i = x - 1;
+            //System.out.printf( "x %d, y %d\n", i, j );
+            for( int k = 0; k < x - j; k++ )
+            {
+                //System.out.printf( "x %d, y %d, k %d, %s\n", i, j, k, str );
+                str = str + grid[ i - k ][ j + k ];
+                //System.out.println( str );
+                if( H.contains( ""+ str ) )
+                {
+                    System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                }
+            }
+            str = "";
+        }
+        // up left
+        System.out.println( "\nlook up-left" );
+        //j moving
+        for( int j = 0 ; j < x; j++ )
+        {
+            int i = x - 1;
+            //System.out.printf( "x %d, y %d\n", i, j );
+            for( int k = 0; k < j + 1; k++ )
+            {
+                //System.out.printf( "x %d, y %d, k %d, %s\n", i, j, k, str );
+                str = str + grid[ i - k ][ j - k ];
+                //System.out.println( str );
+                if( H.contains( ""+ str ) )
+                {
+                    System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                }
+            }
+            str = "";
+        }
+        //i moving
+        for( int i = 0; i < x - 1; i++ )
+        {
+            int j = x - 1;
+            //System.out.printf( "x %d, y %d\n", i, j );
+            for( int k = 0; k < i + 1; k++ )
+            {
+                //System.out.printf( "x %d, y %d, k %d, %s\n", i, j, k, str );
+                str = str + grid[ i - k ][ j - k ];
+                //System.out.println( str );
+                if( H.contains( ""+ str ) )
+                {
+                    System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                }
+            }
+            str = "";
+        }
+        //down left
+        System.out.println( "\nlook down-left" );
+        //j moving
+        for( int j = 0 ; j < x; j++ )
+        {
+            int i = 0;
+            //System.out.printf( "x %d, y %d\n", i, j );
+            for( int k = 0; k < j + 1; k++ )
+            {
+                //System.out.printf( "x %d, y %d, k %d, %s\n", i, j, k, str );
+                str = str + grid[ i + k ][ j - k ];
+                //System.out.println( str );
+                if( H.contains( ""+ str ) )
+                {
+                    System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                }
+            }
+            str = "";
+        }
+        //i moving
+        for( int i = x - 1; i > 0; i-- )
+        {
+            int j = x - 1;
+            //System.out.printf( "x %d, y %d\n", i, j );
+            for( int k = 0; k < x - i; k++ )
+            {
+                //System.out.printf( "x %d, y %d, k %d, %s\n", i, j, k, str );
+                str = str + grid[ i + k ][ j - k ];
+                //System.out.println( str );
+                if( H.contains( ""+ str ) )
+                {
+                    System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                }
+            }
+            str = "";
+        }
+        // down right
+        System.out.println( "\nlook down-right" );
+        //i moving
+        for( int i = x - 1; i >= 0; i-- )
+        {
+            int j = 0;
+            //System.out.printf( "x %d, y %d\n", i, j );
+            for( int k = 0; k < x - i; k++ )
+            {
+                //System.out.printf( "x %d, y %d, k %d, %s\n", i, j, k, str );
+                str = str + grid[ i + k ][ j + k ];
+                //System.out.println( str );
+                if( H.contains( ""+ str ) )
+                {
+                    System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                }
+            }
+            str = "";
+        }
+        //j moving
+        for( int j = x - 1; j > 0; j-- )
+        {
+            int i = 0;
+            //System.out.printf( "x %d, y %d\n", i, j );
+            for( int k = 0; k < x - j; k++ )
+            {
+                //System.out.printf( "x %d, y %d, k %d, %s\n", i, j, k, str );
+                str = str + grid[ i + k ][ j + k ];
+                //System.out.println( str );
+                if( H.contains( ""+ str ) )
+                {
+                    System.out.printf( "x %d, y %d, char %d, %s\n", i, j, k, str );
+                }
+            }
+            str = "";
+        }
+
         long endTime = System.currentTimeMillis( );
 
         System.out.println( "Elapsed time: " + (endTime - startTime) );
