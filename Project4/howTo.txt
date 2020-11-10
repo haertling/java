@@ -1,0 +1,2 @@
+javac *
+java Maze 5 5
