@@ -153,7 +153,7 @@ public class LinearProbingHashTable<AnyType>
             e.printStackTrace();
         }
         try {
-            FileWriter myWriter = new FileWriter("D:\\ProgramFiles\\java\\Project3\\myDictionary.txt");
+            FileWriter myWriter = new FileWriter("myDictionary.txt");
             for( HashEntry<AnyType> entry : array ){
                 if( entry != null && entry.isActive )
                 {
@@ -423,7 +423,7 @@ public class LinearProbingHashTable<AnyType>
 
         try
         {
-            FileInputStream fstream = new FileInputStream("D:\\ProgramFiles\\java\\Project3\\dictionary.txt");
+            FileInputStream fstream = new FileInputStream("dictionary.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
             String strLine;
@@ -475,6 +475,7 @@ public class LinearProbingHashTable<AnyType>
         int x = Integer.parseInt( args[0] );
         char[][] grid = H1.makeGrid( x );
         String str = "";
+        System.out.println( "NO Prefix search " );
         long startTime = System.currentTimeMillis( );
         //look right
         System.out.println( "\nlook right"  );
