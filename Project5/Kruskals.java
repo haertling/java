@@ -27,14 +27,13 @@ public class Kruskals {
         }
     }
 
-    public void kruskal()
+    public void kruskalsAlgorithm()
     {
 
         ArrayList<Connection> Connections = new ArrayList<>();
         ArrayList<String> Cities = new ArrayList<>();
 
-        int totalCities = 0;
-        int sumDistance = 0;
+        int totalCities = 0, sumDistance = 0;
 
         try
         {
@@ -69,17 +68,14 @@ public class Kruskals {
         }
         catch( FileNotFoundException ex){}
 
-        int edgesAccepted = 0;
-        DisjSets ds = new DisjSets( Cities.size() );
+        int numEdges = 0;
+        int numCities = Cities.size();
+        DisjSets ds = new DisjSets( numCities );
 
         PriorityQueue<Connection> queue = new PriorityQueue<>();
+        Connections.forEach( edge -> queue.add(edge) );
 
-        for ( Connection edge : Connections )
-        {
-            queue.add( edge );
-        }
-
-        while ( edgesAccepted < Cities.size() - 1 )
+        while ( numEdges < numCities - 1 )
         {
             Connection edge = queue.poll();
 
@@ -87,8 +83,8 @@ public class Kruskals {
             {
                 ds.union( ds.find( Cities.indexOf( new String( edge.cityA )) ), ds.find( Cities.indexOf( new String( edge.cityB ))) );
                 sumDistance = sumDistance + edge.distance;
-                System.out.println( "Distance from " + edge.cityA + " to " + edge.cityB + ": " + edge.distance );
-                edgesAccepted++;
+                System.out.println( "Distance from  " + edge.cityA + "  to  " + edge.cityB + ": " + edge.distance );
+                numEdges++;
             }
 
         }
@@ -100,7 +96,7 @@ public class Kruskals {
     public static void main( String[] args )
     {
         Kruskals algorithm = new Kruskals();
-        algorithm.kruskal();
+        algorithm.kruskalsAlgorithm();
     }
 
 }
